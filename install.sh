@@ -7,10 +7,15 @@ case "${PH_OS}" in \
         done
 
         test ${PH_ARCH} == '32bit' && LIBDIR='client' || LIBDIR='client64'
-        LIBDIR="/usr/lib/oracle/10.2.0.5/${LIBDIR}/lib"
+        LIBDIR="/usr/lib/oracle/10.2.0.5/${LIBDIR}"
 
         # Append new library if not already there
-        grep "${LIBDIR}" /etc/ld.so.conf >/dev/null || echo "${LIBDIR}" >> /etc/ld.so.conf && ldconfig
+        grep "${LIBDIR}/lib" /etc/ld.so.conf >/dev/null || echo "${LIBDIR}/lib" >> /etc/ld.so.conf && ldconfig
+
+        # Add executables to PATH
+        for i in `ls -1 $LIBDIR/bin`; do
+            ph_symlink $LIBDIR/bin/$i /usr/local/bin/$i
+        done
     ;;
 
     *)
