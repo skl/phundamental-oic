@@ -33,7 +33,7 @@ case "${PH_OS}" in \
         LIBDIR="/usr/local/instantclient"
         ph_mkdirs ${LIBDIR}
 
-        mv /tmp/phundamental-oic/instantclient_10_2/* ${LIBDIR}
+        mv /tmp/phundamental-oic/instantclient_11_2/* ${LIBDIR}
         rm -rf /tmp/phundamental-oic
 
         ph_symlink ${LIBDIR}/sqlplus /usr/local/bin/sqlplus true
