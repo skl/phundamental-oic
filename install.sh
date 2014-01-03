@@ -32,10 +32,11 @@ case "${PH_OS}" in \
         LIBDIR="/usr/local/instantclient"
         ph_mkdirs ${LIBDIR}
 
-        mv /tmp/phundamental-oic/instantclient_11_2/* ${LIBDIR}
+        mv /tmp/phundamental-oic/instantclient_*_2/* ${LIBDIR}
         rm -rf /tmp/phundamental-oic
 
         ph_symlink ${LIBDIR}/sqlplus /usr/local/bin/sqlplus true
+        ph_symlink ${LIBDIR}/libclntsh.dylib.*.1 ${LIBDIR}/libclntsh.dylib
 
         # Export environmental variables now so that PHP installation works right away
         export ORACLE_HOME=${LIBDIR}
