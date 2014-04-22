@@ -4,13 +4,13 @@ case "${PH_OS}" in
 "linux")
     case "${PH_OS_FLAVOUR}" in
     "debian")
-        PH_OIC_UNINSTALL_CMD='dpkg -r'
-        PH_OIC_UNINSTALL_SEARCH='dpkg -l'
+        PH_OIC_UNINSTALL_CMD="dpkg -r"
+        PH_OIC_UNINSTALL_SEARCH="dpkg -l | grep oracle-instantclient | awk '{print \$2}'"
         ;;
 
     "suse")
-        PH_OIC_UNINSTALL_CMD='rpm -e'
-        PH_OIC_UNINSTALL_SEARCH='rpm -qa'
+        PH_OIC_UNINSTALL_CMD="rpm -e"
+        PH_OIC_UNINSTALL_SEARCH="rpm -qa | grep oracle-instantclient"
         ;;
 
     *)
@@ -19,9 +19,8 @@ case "${PH_OS}" in
         ;;
     esac
 
-    echo "You should run the following commands at your own risk:"
-    for i in `${PH_OIC_UNINSTALL_SEARCH} | grep -i oracle`; do
-        echo ${PH_OIC_UNINSTALL_CMD} ${i}
+    for i in `${PH_OIC_UNINSTALL_SEARCH}`; do
+        ${PH_OIC_UNINSTALL_CMD} ${i}
     done
 
     test ${PH_ARCH} == '32bit' && LIBDIR='client' || LIBDIR='client64'
