@@ -23,11 +23,7 @@ case "${PH_OS}" in
         ${PH_OIC_UNINSTALL_CMD} ${i}
     done
 
-    test ${PH_ARCH} == '32bit' && LIBDIR='client' || LIBDIR='client64'
-    LIBDIR="/usr/lib/oracle/10.2.0.5/${LIBDIR}/lib"
-
-    # Remove library path if exists
-    ph_search_and_replace "${LIBDIR}" "" /etc/ld.so.conf
+    rm -iv /etc/ld.so.conf.d/oracle-instantclient.conf
     ldconfig
     ;;
 
